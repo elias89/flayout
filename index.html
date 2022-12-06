@@ -1,0 +1,129 @@
+<html>
+  <head></head>
+  <body>
+    <div class="flayout-group flayout-vertical">
+      <div class="flayout-pane" data-min-width="100">
+        What is Lorem Ipsum?
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+Why do we use it?
+It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+
+
+      </div>
+      <!-- <div class="flayout-drag" draggable="true"></div> -->
+      <div class="flayout-pane" data-min-width="100">
+        What is Lorem Ipsum?
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+Why do we use it?
+It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+      </div>
+    </div>
+
+    <style>
+  .flayout-group {
+    /* width: 630px; */
+    margin: 0 auto;
+    position: relative;
+    height: 100%;
+  }
+  body {
+    padding: 0;
+    margin: 0;
+  }
+  body, html {
+    width: 100%;
+    height: 100%;
+  }
+  .flayout-main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    box-sizing: border-box;
+  }
+  .flayout-pane {
+    display: flex;
+    width: auto;
+    height: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+    border: 1px solid black;
+  }
+  .flayout-pane.dragging { 
+    box-shadow: 1px 0 black;
+  }
+
+  .flayout-vertical {
+    display: flex;
+    flex-direction: row;
+  }
+  .flayout-drag {
+    display: block;
+    height: 100%;
+    width: 5px;
+    background-color: black;
+    position: relative;
+    cursor: ew-resize;
+    position: absolute;
+    margin-left: -2px;
+  }
+  .flayout-drag.dragging {
+    opacity: 0;
+  }
+</style>
+<script>
+/*
+  TODO: This is still under development, supports only vertical split
+*/
+(function(){
+  const MIN_PANE_WIDTH = 15;
+  const groups = Array.from(document.querySelectorAll('.flayout-group'));
+
+  groups.forEach((group) => {
+    const panes = Array.from(group.querySelectorAll('.flayout-pane'));
+
+    panes[0].style.width = group.clientWidth / 2;
+    panes[1].style.width = group.clientWidth / 2;
+
+    const dragElement = document.createElement('div');
+    dragElement.classList.add('flayout-drag');
+    dragElement.setAttribute('draggable', 'true');
+    dragElement.style.left = `${group.offsetWidth / 2}px`;
+    panes[0].after(dragElement);
+
+    dragElement.addEventListener('dragstart', (event) => {
+      event.target.classList.add('dragging')
+    });
+
+    dragElement.addEventListener('drag', (event) => {
+      if (event.clientX <= 0) {
+        return;
+      }
+      const group = event.target.parentElement;
+      const clientWidth = document.body.clientWidth;
+      const paneA = event.target.previousElementSibling;
+      const paneB = event.target.nextElementSibling;
+
+      let delta = event.clientX - group.offsetLeft;
+
+      paneA.style.width = restrictMinPaneWidth(delta);
+      paneB.style.width = restrictMinPaneWidth(group.clientWidth - delta);
+    });
+
+    dragElement.addEventListener('dragend', (event) => {
+      const paneA = event.target.previousElementSibling;
+      dragElement.style.left = paneA.offsetWidth;
+
+      event.target.classList.remove('dragging');
+      paneA.classList.remove('dragging');
+    });
+  });
+
+  function restrictMinPaneWidth(paneWidth) {
+    return paneWidth > MIN_PANE_WIDTH ? paneWidth : MIN_PANE_WIDTH;
+  }
+})();
+</script>
+  </body>
+</html>
