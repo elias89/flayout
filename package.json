@@ -1,0 +1,19 @@
+{
+  "name": "@bitlib/flayout",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elias89/flayout.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elias89/flayout/issues"
+  },
+  "homepage": "https://github.com/elias89/flayout#readme"
+}
