@@ -13,12 +13,11 @@ Because I haven't found anything simple, lightweight and scalable. Seems like pe
 This is still under development but I kind of like publishing code as I work so anyone can see the progress in a "real-time" way.
 So.. so far only this way:
 
-1. 
+1. Install the library.
 ```
 npm i -S @bitlib/flayout
 ```
-2. 
-Add the module import
+2. Add the module import.
 ```
     <script type="module">
       import { FLayout } from './node_modules/@bitlib/flayout/index.js';
@@ -26,7 +25,7 @@ Add the module import
       FLayout.init();
     </script>
 ```
-3. Include the CSS
+3. Include the CSS.
 ```
     <link rel="stylesheet" href="./node_modules/@bitlib/flayout/styles.css" type="text/css" />
 ```
@@ -41,6 +40,6 @@ Add the module import
       </div>
     </div>
 ```
-Clue: You can nest more `flayout-group`s and `flayout-pane`s so that way you get more than just 2 panes.
+Clue: You can nest more `flayout-group` and `flayout-pane` so that way you get more than just 2 panes.
 
 All this will change and improve.
