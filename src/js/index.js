@@ -15,8 +15,8 @@ function flayout(){
   groups.forEach((group) => {
     const panes = Array.from(group.querySelectorAll('.flayout-pane'));
 
-    panes[0].style.width = group.clientWidth / 2;
-    panes[1].style.width = group.clientWidth / 2;
+    panes[0].style.width = `${group.clientWidth / 2}px`;;
+    panes[1].style.width = `${group.clientWidth / 2}px`;
 
     const dragElement = document.createElement('div');
     dragElement.classList.add('flayout-drag');
