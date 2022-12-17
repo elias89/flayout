@@ -32,17 +32,18 @@ body, html {
 
 .flayout-vertical {
   display: flex;
+  width: 100%;
   flex-direction: row;
 }
 .flayout-drag {
   display: block;
   height: 100%;
-  width: 5px;
+  width: 10px;
   background-color: black;
   position: relative;
   cursor: ew-resize;
   position: absolute;
-  margin-left: -2px;
+  // margin-left: -5px;
 }
 .flayout-drag.dragging {
   opacity: 0;
