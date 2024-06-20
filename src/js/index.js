@@ -4,10 +4,10 @@ import './../styles/main.scss';
   TODO: This is still under development, supports only vertical split
 */
 
-const _flayoutContainer = null
-const _flayoutLeftColumn = null;
-const _flayoutRightColumn = null;
-const _flayoutDivider = null;
+let _flayoutContainer = null
+let _flayoutLeftColumn = null;
+let _flayoutRightColumn = null;
+let _flayoutDivider = null;
 let _flayoutIsDragging = false;
 
 function flayout() {
