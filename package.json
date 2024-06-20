@@ -1,6 +1,6 @@
 {
   "name": "@bitlib/flayout",
-  "version": "1.0.7",
+  "version": "2.0.0",
   "description": "",
   "module": "dist/flayout.esm.min.js",
   "browser": "dist/flayout.umd.min.js",

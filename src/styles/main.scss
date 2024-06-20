@@ -1,50 +1,41 @@
-.flayout-group {
-  /* width: 630px; */
-  margin: 0 auto;
-  position: relative;
-  height: 100%;
-}
-body {
-  padding: 0;
-  margin: 0;
-}
 body, html {
+  margin: 0;
+  height: 100%;
   width: 100%;
-  height: 100%;
-}
-.flayout-main {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  box-sizing: border-box;
-}
-.flayout-pane {
-  display: flex;
-  width: auto;
-  height: 100%;
-  box-sizing: border-box;
-  overflow-y: auto;
-  border: 1px solid black;
-}
-.flayout-pane.dragging { 
-  box-shadow: 1px 0 black;
 }
 
-.flayout-vertical {
+.flayout-main * {
+  box-sizing: border-box;
+}
+
+.flayout-main {
   display: flex;
-  width: 100%;
-  flex-direction: row;
-}
-.flayout-drag {
-  display: block;
   height: 100%;
-  width: 10px;
-  background-color: black;
   position: relative;
-  cursor: ew-resize;
-  position: absolute;
-  // margin-left: -5px;
 }
-.flayout-drag.dragging {
-  opacity: 0;
+
+.flayout-pane {
+  flex-grow: 1;
+  padding: 10px;
+  overflow: auto;
+}
+
+.flayout-pane__left {
+  background-color: #f0f0f0;
+}
+
+.flayout-pane__right {
+  background-color: #e0e0e0;
+}
+
+.flayout-drag {
+  width: 5px;
+  background-color: #ccc;
+  cursor: col-resize;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
 }
