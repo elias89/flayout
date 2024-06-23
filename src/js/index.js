@@ -4,45 +4,43 @@ import './../styles/main.scss';
   TODO: This is still under development, supports only vertical split
 */
 
-let _flayoutContainer = null
-let _flayoutLeftColumn = null;
-let _flayoutRightColumn = null;
-let _flayoutDivider = null;
-let _flayoutIsDragging = false;
+function init() {
+  const _flayoutEventStart = new Event("flayoutStart");
+  const _flayoutEventEnd = new Event("flayoutEnd");
 
-function flayout() {
-  _flayoutContainer = document.querySelector('.flayout-main');
-  _flayoutLeftColumn = document.querySelector('.flayout-pane__left');
-  _flayoutRightColumn = document.querySelector('.flayout-pane__right');
-  _flayoutDivider = document.querySelector('.flayout-drag');
-
+  const _flayoutContainer = document.querySelector('.flayout-main');
+  const _flayoutLeftColumn = document.querySelector('.flayout-pane__left');
+  const _flayoutRightColumn = document.querySelector('.flayout-pane__right');
+  const _flayoutDivider = document.querySelector('.flayout-drag');
+  let _isDragging = false;
 
   _flayoutDivider.addEventListener('mousedown', (e) => {
-    _flayoutIsDragging = true;
-    document.addEventListener('mousemove', flayoutDragStart);
-    document.addEventListener('mouseup', flayoutDragStop);
+    _isDragging = true;
+    _flayoutContainer.dispatchEvent(_flayoutEventStart);
   });
+  document.addEventListener('mousemove', _dragStart);
+  document.addEventListener('mouseup', _dragStop);
+
+  function _dragStart(e) {
+    if (!_isDragging) return;
+  
+    const containerRect = _flayoutContainer.getBoundingClientRect();
+    const offsetX = e.clientX - containerRect.left;
+  
+    const leftColumnWidth = ((offsetX / containerRect.width) * 100);
+    const rightColumnWidth = 100 - leftColumnWidth;
+  
+    _flayoutLeftColumn.style.flex = `0 0 ${leftColumnWidth}%`;
+    _flayoutRightColumn.style.flex = `0 0 ${rightColumnWidth}%`;
+    _flayoutDivider.style.left = `${leftColumnWidth}%`;
+  }
+  
+  function _dragStop() {
+    _isDragging = false;
+    _flayoutContainer.dispatchEvent(_flayoutEventEnd);
+  }
 }
-
-
-function flayoutDragStart(e) {
-  if (!_flayoutIsDragging) return;
-
-  const containerRect = _flayoutContainer.getBoundingClientRect();
-  const offsetX = e.clientX - containerRect.left;
-
-  const leftColumnWidth = ((offsetX / containerRect.width) * 100);
-  const rightColumnWidth = 100 - leftColumnWidth;
-
-  _flayoutLeftColumn.style.flex = `0 0 ${leftColumnWidth}%`;
-  _flayoutRightColumn.style.flex = `0 0 ${rightColumnWidth}%`;
-  _flayoutDivider.style.left = `${leftColumnWidth}%`;
+const flayout = {
+  init: init,
 }
-
-function flayoutDragStop() {
-  _flayoutIsDragging = false;
-  document.removeEventListener('mousemove', drag);
-  document.removeEventListener('mouseup', stopDrag);
-}
-
 export default flayout;

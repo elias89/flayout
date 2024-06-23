@@ -12,11 +12,11 @@ body, html {
   display: flex;
   height: 100%;
   position: relative;
+  width: 100%;
 }
 
 .flayout-pane {
   flex-grow: 1;
-  padding: 10px;
   overflow: auto;
 }
 
@@ -30,7 +30,7 @@ body, html {
 
 .flayout-drag {
   width: 5px;
-  background-color: #ccc;
+  background-color: #000;
   cursor: col-resize;
   position: absolute;
   top: 0;
